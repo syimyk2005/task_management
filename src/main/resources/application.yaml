@@ -1,0 +1,20 @@
+spring:
+  application:
+    name:
+      task_manager
+  datasource:
+    url: jdbc:postgresql://localhost:5432/task_manager
+    username: postgres
+    password: postgres16
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+application:
+  security:
+    jwt:
+      secret-key: bb881451354ad90b161deb433b52a964ec4cd34db010d24f3e116136ab734e8a
+      access-token-expiration: 86400000
+      refresh-token-expiration: 604800000
+server:
+  port: 8080
