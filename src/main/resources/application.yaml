@@ -14,7 +14,7 @@ application:
   security:
     jwt:
       secret-key: bb881451354ad90b161deb433b52a964ec4cd34db010d24f3e116136ab734e8a
-      access-token-expiration: 86400000
+      access-token-expiration: 900000
       refresh-token-expiration: 604800000
 server:
   port: 8080

@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class UserControllerIntegrationTest {
+class UserControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
@@ -61,9 +61,10 @@ class UserControllerIntegrationTest {
 
     @Test
     void deleteUser_shouldReturnNoContent() throws Exception {
-        Long userId = 1L; // поставь существующий id
+        Long userId = 1L;
         mockMvc.perform(delete("/api/users/{id}", userId)
                         .header("Authorization", "Bearer " + TOKEN))
                 .andExpect(status().isNoContent());
     }
+
 }

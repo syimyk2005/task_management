@@ -1,4 +1,4 @@
-package com.task_manager.auth_service.service;
+package com.task_manager.auth_service.config;
 
 import com.task_manager.auth_service.model.entity.Token;
 import com.task_manager.auth_service.repository.TokenRepository;

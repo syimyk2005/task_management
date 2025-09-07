@@ -1,12 +1,12 @@
 package com.task_manager.auth_service.config;
 
 import com.task_manager.auth_service.filter.JwtAuthenticationFilter;
-import com.task_manager.auth_service.service.CustomLogoutHandler;
 import com.task_manager.auth_service.service.UserDetailsServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,12 +26,21 @@ public class SecurityConfig {
     private final UserDetailsServiceImpl userDetailsServiceImp;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomLogoutHandler customLogoutHandler) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/api/auth/register", "api/auth/login", "api/auth/refresh_token", "/swagger-ui/index.html").permitAll()
+                        .requestMatchers("/api/auth/**", "/swagger-ui/index.html",   "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/users","/api/teams").hasAnyAuthority("ADMIN", "MANAGER")
+                        .requestMatchers(HttpMethod.PUT, "/api/teams/**").hasAnyAuthority("ADMIN", "MANAGER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/users/**", "/api/teams/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "api/teams/{id}/members/**").hasAnyAuthority("ADMIN", "MANAGER")
+                        .requestMatchers(HttpMethod.POST, "/api/teams/**/members").hasAnyAuthority("ADMIN", "MANAGER" )
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsServiceImp)

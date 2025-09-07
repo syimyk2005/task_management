@@ -1,4 +1,4 @@
-package com.task_manager.config;
+package com.task_manager.auth_service.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -14,6 +14,6 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("Task Manager API")
                         .version("1.0")
-                        .description("API для управления задачами"));
+                        .description("Тапшырмалар жана топторду башкаруу учун API"));
     }
 }

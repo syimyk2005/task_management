@@ -1,6 +1,5 @@
 package com.task_manager.auth_service.model.dto;
 
-import com.task_manager.auth_service.model.entity.Token;
 import com.task_manager.auth_service.model.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
